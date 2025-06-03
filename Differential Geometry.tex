@@ -1,0 +1,236 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{stmaryrd}
+\usepackage{lmodern}  
+\usepackage{microtype}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{\textbf{Differential Geometry}\\[0.5em]}
+\author{R.Rusev}
+\date{}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}{Example}[section]
+\newtheorem{remark}{Remark}[section]
+
+
+\begin{document}
+\maketitle
+
+\section{Smooth Manifolds}
+
+\medskip
+\begin{definition}[Chart]
+An $n$-dimensional chart on a set $M$ is a map $\varphi : U \to \tilde{U}$, where:
+\begin{itemize}
+    \item $U \subseteq M$ is a subset,
+    \item $\tilde{U} \subseteq \mathbb{R}^n$ is a non-empty open subset,
+    \item $\varphi$ is a bijection.
+\end{itemize}
+A chart is often denoted by $(U, \varphi)$, and $\tilde{U}$ always refers to the range of $\varphi$.
+
+Then $U$ is called a \emph{coordinate domain} and $\varphi$ the \emph{coordinate map}. The coordinate map is a vector-valued function with components usually denoted as $x^1, \ldots, x^n$ (or $y^1, \ldots, y^n$, etc.), and called \emph{coordinates on $U$} determined by the chart $(U, \varphi)$. Accordingly, we often write $(U, \varphi = (x^1, \ldots, x^n))$.
+\end{definition}
+
+\medskip
+\begin{definition}[Chart Around a Point]
+A chart on $M$ \emph{around a point} $p \in M$ is a chart $(U, \varphi)$ such that $p \in U$.
+\end{definition}
+
+\medskip
+\begin{definition}[Centered Chart]
+A chart $(U, \varphi)$ around a point $p \in M$ is said to be \emph{centered at $p$} if $\tilde{U} = \varphi(U) \ni 0$ and $\varphi(p) = 0$.
+\end{definition}
+
+\medskip
+\begin{example}
+The identity map $\mathrm{id} : \mathbb{R}^n \to \mathbb{R}^n$ is an $n$-dimensional chart on $\mathbb{R}^n$ whose associated coordinates are the standard coordinates $t^1, \ldots, t^n$.
+
+The chart $(\mathbb{R}^n, \mathrm{id})$ is also called the \emph{standard chart} on $\mathbb{R}^n$.
+
+The standard chart on $\mathbb{R}^n$ is centered at $0$.
+\end{example}
+
+\medskip
+\begin{definition}[Coordinate Map Associated with a Frame]
+Let $V$ be an $n$-dimensional real vector space, and let $R = (e_1, \ldots, e_n)$ be a basis (frame) of $V$. The \emph{coordinate map associated with $R$} is the vector space isomorphism
+\[
+\varphi_R : V \to \mathbb{R}^n, \quad v \mapsto \varphi_R(v) := \big(x^1(v), \ldots, x^n(v)\big),
+\]
+where the components $x^i(v)$ are determined by the unique expression
+\[
+v = \sum_{i=1}^n x^i(v) e_i.
+\]
+\end{definition}
+
+\medskip
+\begin{example}
+Example 1.1 can be generalized by considering any $n$-dimensional real vector space $V$ and any frame $R = (e_1, \ldots, e_n)$ of $V$.
+
+The coordinate map $\varphi_R : V \to \mathbb{R}^n$ defined as in Definition 1.4 maps each vector $v \in V$ to its coordinate tuple with respect to the frame $R$.
+
+The pair $(V, \varphi_R)$ forms an $n$-dimensional chart on $V$, and it is centered at $0$, since $\varphi_R(0) = 0$ and $\varphi_R(V) = \mathbb{R}^n$.
+\end{example}
+
+\medskip
+\begin{example}[Stereographic Charts on the Sphere]
+Consider the Euclidean space $\mathbb{R}^{n+1}$ with standard coordinates $t^1, \ldots, t^{n+1}$. For a point $P = (P^1, \ldots, P^{n+1}) \in \mathbb{R}^{n+1}$, define the Euclidean norm by
+\[
+\|P\| := \sqrt{(P^1)^2 + \cdots + (P^{n+1})^2}.
+\]
+The $n$-dimensional unit sphere is the subset
+\[
+S^n := \left\{ P \in \mathbb{R}^{n+1} \mid \|P\| = 1 \right\}.
+\]
+
+Define the north and south poles as
+\[
+P_+ := (0, \ldots, 0, 1), \quad P_- := (0, \ldots, 0, -1),
+\]
+and the corresponding open subsets
+\[
+U_+ := S^n \setminus \{P_+\}, \quad U_- := S^n \setminus \{P_-\}.
+\]
+
+For $P \in U_+$, the line through $P$ and $P_+$ intersects the hyperplane $t^{n+1} = 0$ at a unique point with coordinates $(X^1_+(P), \ldots, X^n_+(P))$. This defines the \emph{stereographic projection from the north}:
+\[
+\varphi_+ : U_+ \to \mathbb{R}^n, \quad \varphi_+(P) := (X^1_+(P), \ldots, X^n_+(P)).
+\]
+Similarly, projection from $P_-$ defines the \emph{stereographic projection from the south}:
+\[
+\varphi_- : U_- \to \mathbb{R}^n, \quad \varphi_-(P) := (X^1_-(P), \ldots, X^n_-(P)).
+\]
+
+Both $(U_+, \varphi_+)$ and $(U_-, \varphi_-)$ are $n$-dimensional charts on $S^n$. The chart from the north is centered at the south pole $P_-$, and the chart from the south is centered at the north pole $P_+$.
+\end{example}
+
+\medskip
+\begin{example}[Orthogonal Projection Charts on the Sphere]
+Let $S^n \subset \mathbb{R}^{n+1}$ be the $n$-dimensional sphere defined as before.
+
+We first define the open unit $n$-disk:
+\[
+D^n := \left\{ P \in \mathbb{R}^n \mid \|P\| < 1 \right\},
+\]
+where $\|x\|$ denotes the standard Euclidean norm in $\mathbb{R}^n$.
+
+For each index $i = 1, \ldots, n+1$, we consider the open subsets of $S^n$:
+\[
+U_{i,\pm} := \left\{ P \in S^n \mid \pm P^i > 0 \right\},
+\]
+which are the portions of the sphere where the $i$-th coordinate is strictly positive (for $U_{i,+}$) or strictly negative (for $U_{i,-}$).
+
+Now define the orthogonal projection map:
+\[
+\pi_i : \mathbb{R}^{n+1} \to \mathbb{R}^n, \quad \pi_i(P^1, \ldots, P^{n+1}) := (P^1, \ldots, \widehat{P^i}, \ldots, P^{n+1}),
+\]
+where the hat $\widehat{P^i}$ means that the $i$-th component is omitted. This is simply the projection of a point in $\mathbb{R}^{n+1}$ onto the hyperplane $t^i = 0$.
+
+It can be shown that the restriction of $\pi_i$ to $U_{i,\pm}$ maps onto the open unit disk $D^n$:
+\[
+\pi_i : U_{i,\pm} \to D^n.
+\]
+Thus, each pair $(U_{i,\pm}, \pi_i)$ defines an $n$-dimensional chart on $S^n$. These are called the \emph{orthogonal projection charts} onto the $t^i = 0$ hyperplane.
+
+Each such chart is centered at the point
+\[
+(0, \ldots, \pm 1, \ldots, 0) \in S^n,
+\]
+where the value $\pm 1$ occurs in the $i$-th coordinate.
+\end{example}
+
+\medskip
+\begin{example}[Affine Charts on the Projective Space]
+Consider $\mathbb{R}^{n+1} \setminus \{0\}$ with standard coordinates $(t^0, \ldots, t^n)$. Define an equivalence relation $\sim$ by declaring
+\[
+P \sim Q \quad \text{if and only if} \quad P = \lambda Q \quad \text{for some } \lambda \in \mathbb{R} \setminus \{0\}.
+\]
+That is, two points are equivalent if they lie on the same line through the origin.
+
+The $n$-dimensional real projective space is defined as the quotient
+\[
+\mathbb{RP}^n := \left(\mathbb{R}^{n+1} \setminus \{0\} \right) \big/ \sim.
+\]
+Equivalently, $\mathbb{RP}^n$ is the set of lines through the origin in $\mathbb{R}^{n+1}$. An element of $\mathbb{RP}^n$ is denoted by an equivalence class
+\[
+[P] = [P^0 : \cdots : P^n],
+\]
+where $(P^0, \ldots, P^n) \in \mathbb{R}^{n+1} \setminus \{0\}$ and the $P^i$ are called \emph{homogeneous coordinates} of $[P]$.
+
+To define charts on $\mathbb{RP}^n$, fix $i \in \{0, \ldots, n\}$ and consider the open subset
+\[
+U_i := \left\{ [P^0 : \cdots : P^n] \in \mathbb{RP}^n \mid P^i \neq 0 \right\}.
+\]
+On $U_i$, we define the coordinate map $\varphi_i : U_i \to \mathbb{R}^n$ by
+\[
+\varphi_i([P^0 : \cdots : P^n]) := \left( \frac{P^0}{P^i}, \ldots, \widehat{\frac{P^i}{P^i}}, \ldots, \frac{P^n}{P^i} \right),
+\]
+where the hat $\widehat{\cdot}$ indicates omission of the $i$-th coordinate. This map is well-defined and bijective.
+
+The inverse is given by
+\[
+\varphi_i^{-1}(Q^1, \ldots, Q^n) = [Q^1 : \cdots : 1 : \cdots : Q^n],
+\]
+where the number $1$ is placed in the $i$-th position (i.e., the coordinate that was omitted).
+
+Each pair $(U_i, \varphi_i)$ defines an $n$-dimensional chart on $\mathbb{RP}^n$, called an \emph{affine chart}. The chart $(U_i, \varphi_i)$ is centered at the point
+\[
+[0 : \cdots : 1 : \cdots : 0],
+\]
+where the $1$ appears in the $i$-th position.
+\end{example}
+
+\medskip
+\begin{remark}
+Given an $n$-dimensional chart $(U, \varphi)$ on a set $M$, we can use the coordinate map $\varphi$ to identify the coordinate domain $U$ with its image $\tilde{U} := \varphi(U) \subset \mathbb{R}^n$. This allows us to transfer notions from calculus such as continuity, differentiability, and smoothness from $\tilde{U}$ to $U$.
+
+For example, a function $f : U \to \mathbb{R}$ is said to be \emph{smooth at a point} $p \in U$ if the composition $f \circ \varphi^{-1} : \tilde{U} \to \mathbb{R}$ is smooth at $\varphi(p)$.
+
+To extend this idea to the entire set $M$, we require a collection of charts $\mathcal{A} = \{(U, \varphi)\}$ that covers $M$ i.e., $M = \bigcup_{(U, \varphi) \in \mathcal{A}} U$. Then, for a function $f : M \to \mathbb{R}$ and a point $p \in M$, we define $f$ to be \emph{smooth at $p$} if there exists a chart $(U, \varphi) \in \mathcal{A}$ around $p$ such that $f \circ \varphi^{-1} : \varphi(U) \to \mathbb{R}$ is smooth at $\varphi(p)$.
+
+However, this definition may depend on the choice of chart unless the family $\mathcal{A}$ satisfies certain compatibility conditions. This leads us to the notion of a \emph{smooth atlas}.
+\end{remark}
+
+\medskip
+\begin{definition}[Compatible Charts]
+Let $(U, \varphi = (x^1, \ldots, x^n))$ and $(V, \psi = (y^1, \ldots, y^n))$ be two $n$-dimensional charts on a set $M$. These charts are said to be \emph{compatible} if either:
+
+\begin{itemize}
+    \item The domains do not overlap: $U \cap V = \emptyset$, or
+    \item The domains overlap ($U \cap V \neq \emptyset$), and the following two conditions are satisfied:
+    \begin{enumerate}
+        \item The images $\varphi(U \cap V) \subset \mathbb{R}^n$ and $\psi(U \cap V) \subset \mathbb{R}^n$ are open subsets.
+        \item The map $\psi \circ \varphi^{-1} : \varphi(U \cap V) \to \psi(U \cap V)$ is a \emph{diffeomorphism}, that is, a smooth bijection with a smooth inverse.
+    \end{enumerate}
+\end{itemize}
+
+The map $\psi \circ \varphi^{-1}$ is called the \emph{transition map} between the charts $(U, \varphi)$ and $(V, \psi)$, or between the coordinate systems $(x^1, \ldots, x^n)$ and $(y^1, \ldots, y^n)$.
+\end{definition}
+
+\medskip
+\begin{definition}[Atlas]
+An \emph{$n$-dimensional atlas} (or \emph{smooth atlas}) on a set $M$ is a collection $\mathcal{A} = \{(U, \varphi)\}$ of $n$-dimensional charts satisfying the following conditions:
+
+\begin{itemize}
+    \item \textbf{Covering:} The charts cover $M$, that is,
+    \[
+    M = \bigcup_{(U, \varphi) \in \mathcal{A}} U.
+    \]
+    \item \textbf{Compatibility:} Any two charts in $\mathcal{A}$ are pairwise compatible.
+\end{itemize}
+
+An atlas allows us to transfer the tools of calculus from $\mathbb{R}^n$ to the set $M$ by using coordinate charts.
+
+\smallskip
+Before introducing examples, we note that there are several ways to generate new charts that are compatible with those already in the atlas.
+\end{definition}
+
+
+\end{document}
